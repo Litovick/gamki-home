@@ -1,0 +1,6 @@
+{
+  "name": "감자 키우기",
+  "description": "춘천 호숫가 언덕에서 나만의 감자를 돌보며 성장시키는 수업 프로젝트 모바일 앱 소개 홈페이지",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,177 @@
+import { useState } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
+import { Check, Copy, ExternalLink } from 'lucide-react';
+import { Reveal } from './Reveal';
+import { APP_LIVE_URL } from '../utils/potatoLogic';
+import { getRevealDelay } from '../utils/revealLogic';
+
+export function ProjectInfoSection() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(APP_LIVE_URL);
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      // 클립보드 권한 제한 시 무시
+    }
+  };
+
+  return (
+    <>
+      <section
+        id="project"
+        className="scroll-mt-16 py-20 sm:py-24 bg-[#F5F7F0] border-t-2 border-[#3A2A20]/10"
+      >
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <Reveal className="max-w-2xl space-y-3 mb-12">
+            <p className="text-sm font-medium text-[#3D7D47]">프로젝트 안내</p>
+            <h2 className="font-display text-3xl sm:text-4xl text-[#3A2A20]">
+              프로젝트 정보
+            </h2>
+            <p className="text-base text-[#5B493E] leading-relaxed">
+              감자 키우기 앱의 기획 배경, 함께 만든 팀원, 그리고 앱 바로가기
+              정보를 확인해 보세요.
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* 카드 1: 프로젝트 개요 */}
+            <Reveal delayMs={getRevealDelay(0)} className="flex">
+              <article className="w-full rounded-[24px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] flex flex-col justify-between">
+                <div>
+                  <div className="text-xs font-medium text-[#3D7D47] mb-1">
+                    01 · 개요
+                  </div>
+                  <h3 className="font-display text-2xl text-[#3A2A20] mb-4">
+                    프로젝트 개요
+                  </h3>
+                  <div className="rounded-2xl bg-[#FAF8F2] border-2 border-dashed border-[#3A2A20]/25 p-5 min-h-[168px] flex items-center justify-center text-center">
+                    <p className="text-sm text-[#5B493E] leading-relaxed">
+                      [진행 기간, 앱 기획 의도 등 프로젝트 개요 입력 예정]
+                    </p>
+                  </div>
+                </div>
+                <p className="mt-4 text-xs text-[#6B584B]">
+                  프로젝트 발표 및 시연 안내 문구 자리
+                </p>
+              </article>
+            </Reveal>
+
+            {/* 카드 2: 팀원 소개 */}
+            <Reveal delayMs={getRevealDelay(1)} className="flex">
+              <article className="w-full rounded-[24px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] flex flex-col justify-between">
+                <div>
+                  <div className="text-xs font-medium text-[#3D7D47] mb-1">
+                    02 · 만든 사람들
+                  </div>
+                  <h3 className="font-display text-2xl text-[#3A2A20] mb-4">
+                    팀원 소개
+                  </h3>
+                  <div className="space-y-2.5">
+                    {[1, 2, 3].map((idx) => (
+                      <div
+                        key={idx}
+                        className="rounded-xl bg-[#FAF8F2] border border-dashed border-[#3A2A20]/25 px-4 py-3 text-sm text-[#5B493E]"
+                      >
+                        [팀원 {idx} 이름 · 담당 역할 입력 예정]
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <p className="mt-4 text-xs text-[#6B584B]">
+                  기획 · 디자인 · 개발 역할 정리 자리
+                </p>
+              </article>
+            </Reveal>
+
+            {/* 카드 3: 실제 앱 바로가기 (실제 링크 + 스캔 가능한 QR 코드) */}
+            <Reveal delayMs={getRevealDelay(2)} className="flex">
+              <article className="w-full rounded-[24px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] flex flex-col justify-between">
+                <div>
+                  <div className="text-xs font-medium text-[#3D7D47] mb-1">
+                    03 · 체험 연결
+                  </div>
+                  <h3 className="font-display text-2xl text-[#3A2A20] mb-4">
+                    실제 앱 바로가기
+                  </h3>
+
+                  <div className="rounded-2xl bg-[#FAF8F2] border-2 border-[#3A2A20]/15 p-4 flex flex-col items-center text-center gap-3">
+                    <div
+                      className="p-2.5 rounded-2xl bg-[#FFFDF7] border-2 border-[#3A2A20] shadow-[0_3px_0_#3A2A20]"
+                      data-testid="app-qr-code"
+                    >
+                      <QRCodeSVG
+                        value={APP_LIVE_URL}
+                        size={128}
+                        bgColor="#FFFDF7"
+                        fgColor="#3A2A20"
+                        level="M"
+                        title="감자 키우기 앱 바로가기 QR 코드"
+                      />
+                    </div>
+
+                    <p className="text-xs text-[#6B584B]">
+                      휴대전화 카메라로 스캔하면 바로 열려요
+                    </p>
+
+                    <div className="w-full flex items-center justify-between gap-2 rounded-xl bg-[#FFFDF7] border border-[#3A2A20]/20 px-3 py-2">
+                      <a
+                        href={APP_LIVE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs sm:text-[13px] text-[#3D7D47] hover:text-[#2D6135] underline underline-offset-2 truncate"
+                      >
+                        {APP_LIVE_URL}
+                      </a>
+                      <button
+                        type="button"
+                        onClick={handleCopyLink}
+                        aria-label="앱 주소 복사"
+                        className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-[#F4EFE4] hover:bg-[#EAE1CE] text-[#3A2A20] text-xs whitespace-nowrap shrink-0 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3D7D47]"
+                      >
+                        {copied ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-[#3D7D47]" />
+                            <span>복사됨</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5" />
+                            <span>복사</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href={APP_LIVE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-[#3D7D47] hover:bg-[#32693B] active:translate-y-0.5 text-[#FFFDF7] font-display text-base border-2 border-[#3A2A20] shadow-[0_3px_0_#3A2A20] transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3D7D47]"
+                >
+                  <span>앱 바로가기</span>
+                  <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                </a>
+              </article>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-[#FFFDF7] border-t-2 border-[#3A2A20]/15 py-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="font-display text-lg text-[#3A2A20]">
+            감자 키우기 · 프로젝트 홈페이지
+          </div>
+          <p className="text-sm text-[#6B584B]">[추가 정보 입력 예정]</p>
+        </div>
+      </footer>
+    </>
+  );
+}

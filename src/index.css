@@ -1,0 +1,475 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Jua", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --color-ink: #3a2a20;
+  --color-ink-muted: #6b584b;
+  --color-paper: #fffdf7;
+  --color-meadow: #e9f3df;
+  --color-leaf: #6cc070;
+  --color-leaf-deep: #3d7d47;
+  --color-potato: #e8c284;
+  --color-bud: #c9b6f2;
+  --color-petal: #f1ebff;
+  --color-stamen: #ffd23f;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background-color: var(--color-paper);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* 마스코트 원본 비율 컨테이너 */
+.mascot-wrap {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+  transform-origin: 50% 92%;
+}
+
+.mascot-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 표정별 애니메이션 */
+@keyframes mascot-breathe {
+  0%,
+  100% {
+    transform: translateY(0px) scaleX(1) scaleY(1);
+  }
+  50% {
+    transform: translateY(-5px) scaleX(0.985) scaleY(1.025);
+  }
+}
+
+@keyframes mascot-annoyed {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(-1.6deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(1.4deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(-1deg);
+  }
+}
+
+@keyframes mascot-shake {
+  0%,
+  100% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  15% {
+    transform: translate(-2.5px, -1px) rotate(-1.5deg);
+  }
+  30% {
+    transform: translate(2.5px, 1px) rotate(1.5deg);
+  }
+  45% {
+    transform: translate(-2.5px, 1px) rotate(-1.2deg);
+  }
+  60% {
+    transform: translate(2.5px, -1px) rotate(1.2deg);
+  }
+  75% {
+    transform: translate(-1.5px, 0px) rotate(-0.8deg);
+  }
+}
+
+@keyframes mascot-hop {
+  0% {
+    transform: translateY(0px) scale(1, 1);
+  }
+  22% {
+    transform: translateY(3px) scale(1.07, 0.92);
+  }
+  52% {
+    transform: translateY(-18px) scale(0.95, 1.07);
+  }
+  78% {
+    transform: translateY(2px) scale(1.03, 0.97);
+  }
+  100% {
+    transform: translateY(0px) scale(1, 1);
+  }
+}
+
+@keyframes sprout-pop {
+  0% {
+    transform: scale(0.84) translateY(6px);
+    opacity: 0.4;
+  }
+  65% {
+    transform: scale(1.05) translateY(-2px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes cloud-drift-slow {
+  0%,
+  100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(22px);
+  }
+}
+
+@keyframes cloud-drift-reverse {
+  0%,
+  100% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(-18px);
+  }
+}
+
+@keyframes mascot-jelly {
+  0% {
+    transform: translateY(0px) scale(1, 1);
+  }
+  18% {
+    transform: translateY(6px) scale(1.14, 0.86);
+  }
+  42% {
+    transform: translateY(-16px) scale(0.91, 1.11);
+  }
+  65% {
+    transform: translateY(3px) scale(1.06, 0.94);
+  }
+  84% {
+    transform: translateY(-4px) scale(0.98, 1.03);
+  }
+  100% {
+    transform: translateY(0px) scale(1, 1);
+  }
+}
+
+@keyframes mascot-sleep {
+  0%,
+  100% {
+    transform: translateY(0px) scaleX(1.01) scaleY(0.99);
+  }
+  50% {
+    transform: translateY(-2px) scaleX(0.985) scaleY(1.025);
+  }
+}
+
+@keyframes sleep-float {
+  0% {
+    opacity: 0;
+    transform: translate(0px, 6px) scale(0.85);
+  }
+  25% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(12px, -22px) scale(1.08);
+  }
+}
+
+@keyframes bubble-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes rain-fall {
+  0% {
+    transform: translate3d(0, -120px, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.72;
+  }
+  85% {
+    opacity: 0.72;
+  }
+  100% {
+    transform: translate3d(-45px, 680px, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translate3d(0, -80px, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.95;
+  }
+  50% {
+    transform: translate3d(18px, 320px, 0);
+  }
+  85% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(-12px, 680px, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes care-burst {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.7);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.06);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-24px) scale(0.95);
+  }
+}
+
+.mascot-anim-happy,
+.mascot-anim-neutral {
+  animation: mascot-breathe 2.6s ease-in-out infinite;
+}
+
+.mascot-anim-sleep {
+  animation: mascot-sleep 3.6s ease-in-out infinite;
+}
+
+.mascot-anim-annoyed {
+  animation: mascot-annoyed 1.5s ease-in-out infinite;
+}
+
+.mascot-anim-angry {
+  animation: mascot-shake 0.36s linear infinite;
+}
+
+.mascot-anim-hop {
+  animation: mascot-jelly 0.54s cubic-bezier(0.22, 1, 0.36, 1) 1 !important;
+}
+
+.sleep-z-1 {
+  animation: sleep-float 2.6s ease-in-out infinite;
+}
+
+.sleep-z-2 {
+  animation: sleep-float 2.6s ease-in-out 1.1s infinite;
+}
+
+.cloud-bubble-float {
+  animation: bubble-float 3.4s ease-in-out infinite;
+}
+
+.star-twinkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: star-twinkle 2.8s ease-in-out infinite;
+}
+
+.rain-streak {
+  animation: rain-fall 1.05s linear infinite;
+}
+
+.snow-flake {
+  animation: snow-fall 5.2s ease-in-out infinite;
+}
+
+.care-burst-anim {
+  animation: care-burst 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.sprout-group {
+  transform-origin: 150px 134px;
+  animation: sprout-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cloud-slow {
+  animation: cloud-drift-slow 16s ease-in-out infinite;
+}
+
+.cloud-reverse {
+  animation: cloud-drift-reverse 20s ease-in-out infinite;
+}
+
+/* 배경 색상 부드러운 전환 */
+.scene-transition {
+  transition:
+    fill 650ms ease,
+    stroke 650ms ease,
+    stop-color 650ms ease,
+    opacity 500ms ease;
+}
+
+/* 손그림 느낌 슬라이더 스타일 */
+input[type="range"].potato-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  border-radius: 999px;
+  background: #e7e1d5;
+  border: 2px solid #3a2a20;
+  outline: none;
+}
+
+input[type="range"].potato-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f5cd79;
+  border: 2.5px solid #3a2a20;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #3a2a20;
+  transition: transform 0.15s ease;
+}
+
+input[type="range"].potato-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+input[type="range"].potato-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f5cd79;
+  border: 2.5px solid #3a2a20;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #3a2a20;
+}
+
+/* Intersection Observer 스크롤 페이드인 */
+.reveal-item {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition:
+    opacity 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-item.reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* 탭 전환 강조 · 흐림 상태 애니메이션 */
+@keyframes tab-panel-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.tab-state-item {
+  transition:
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 260ms ease,
+    border-color 260ms ease,
+    color 260ms ease,
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.tab-panel-fade {
+  animation: tab-panel-fade 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .tab-state-item {
+    transition: none !important;
+  }
+
+  .tab-panel-fade {
+    animation: none !important;
+  }
+
+  .mascot-anim-happy,
+  .mascot-anim-neutral,
+  .mascot-anim-sleep,
+  .mascot-anim-annoyed,
+  .mascot-anim-angry,
+  .mascot-anim-hop,
+  .sleep-z-1,
+  .sleep-z-2,
+  .cloud-bubble-float,
+  .star-twinkle,
+  .rain-streak,
+  .snow-flake,
+  .care-burst-anim,
+  .sprout-group,
+  .cloud-slow,
+  .cloud-reverse {
+    animation: none !important;
+  }
+}
