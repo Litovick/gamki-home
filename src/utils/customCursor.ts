@@ -1,110 +1,38 @@
-export const BASIC_CURSOR_PATH = '/cursor%20basic.png';
-export const EVENT_CURSOR_PATH = '/cursor%20event.png';
-export const CURSOR_SIZE = 36;
-export const CURSOR_HOTSPOT = 18;
-export const WHITE_THRESHOLD = 240;
+export const CURSOR_SIZE = 54;
+export const CURSOR_HOTSPOT_X = 27;
+export const CURSOR_HOTSPOT_Y = 33;
+
+export const BASIC_CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 100 100"><path d="M48 32 C66 32 82 48 84 65 C85 78 74 88 52 88 C30 88 17 83 17 67 C17 48 30 32 48 32 Z" fill="#CFA75C" stroke="#111111" stroke-width="4.5" stroke-linejoin="round"/><ellipse cx="73" cy="69" rx="3.2" ry="4.5" transform="rotate(28 73 69)" fill="#111111"/><ellipse cx="64" cy="77" rx="2.6" ry="3.8" transform="rotate(38 64 77)" fill="#111111"/></svg>`;
+
+export const EVENT_CURSOR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 100 100"><path d="M48 32 C66 32 82 48 84 65 C85 78 74 88 52 88 C30 88 17 83 17 67 C17 48 30 32 48 32 Z" fill="#CFA75C" stroke="#111111" stroke-width="4.5" stroke-linejoin="round"/><ellipse cx="73" cy="69" rx="3.2" ry="4.5" transform="rotate(28 73 69)" fill="#111111"/><ellipse cx="64" cy="77" rx="2.6" ry="3.8" transform="rotate(38 64 77)" fill="#111111"/><path d="M50 32 C50 25 50 22 50 18" stroke="#628E4C" stroke-width="3.2" stroke-linecap="round" fill="none"/><path d="M50 19 C44 11 33 10 32 17 C31 23 42 24 50 19 Z" fill="#C6EA9F" stroke="#628E4C" stroke-width="2.6" stroke-linejoin="round"/><path d="M50 19 C56 11 67 10 68 17 C69 23 58 24 50 19 Z" fill="#C6EA9F" stroke="#628E4C" stroke-width="2.6" stroke-linejoin="round"/></svg>`;
 
 /**
- * RGBA 픽셀 배열에서 R, G, B 모두 threshold(기본 240) 이상인 흰색 픽셀을 투명(alpha = 0) 처리합니다.
+ * SVG 문자열의 #, 따옴표, 공백 등을 encodeURIComponent로 안전하게 인코딩해 SVG Data URL을 생성합니다.
  */
-export function removeWhiteBackground(
-  rgba: Uint8ClampedArray,
-  threshold: number = WHITE_THRESHOLD
-): Uint8ClampedArray {
-  for (let i = 0; i < rgba.length; i += 4) {
-    const r = rgba[i];
-    const g = rgba[i + 1];
-    const b = rgba[i + 2];
-    if (r >= threshold && g >= threshold && b >= threshold) {
-      rgba[i + 3] = 0;
-    }
-  }
-  return rgba;
+export function encodeSvgDataUrl(svg: string): string {
+  const trimmed = svg.trim();
+  if (!trimmed) return '';
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(trimmed)}`;
 }
 
 /**
- * PNG Data URL과 hotspot(기본 18 18), fallback(auto | pointer)으로 CSS cursor 속성 값을 생성합니다.
+ * SVG Data URL과 hotspot(기본 42 51), fallback(auto | pointer)으로 CSS cursor 속성 값을 생성합니다.
  */
 export function buildCursorCssValue(
-  dataUrl: string | null,
+  svg: string | null,
   fallback: 'auto' | 'pointer',
-  hotspot: number = CURSOR_HOTSPOT
+  hotspotX: number = CURSOR_HOTSPOT_X,
+  hotspotY: number = CURSOR_HOTSPOT_Y
 ): string {
-  if (!dataUrl || !dataUrl.startsWith('data:image/png')) {
+  if (!svg || !svg.trim()) {
     return fallback;
   }
-  return `url("${dataUrl}") ${hotspot} ${hotspot}, ${fallback}`;
-}
-
-function loadImage(src: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.decoding = 'async';
-    img.onload = () => resolve(img);
-    img.onerror = () => reject(new Error(`커서 이미지 로드 실패: ${src}`));
-    img.src = src;
-  });
+  const dataUrl = encodeSvgDataUrl(svg);
+  return `url("${dataUrl}") ${hotspotX} ${hotspotY}, ${fallback}`;
 }
 
 /**
- * 1) 원본 이미지의 흰색 배경(R,G,B >= 240)을 투명하게 처리하고
- * 2) 36x36px 크기로 리사이즈한 PNG Data URL을 반환합니다.
- */
-export async function createProcessedCursorDataUrl(
-  src: string,
-  size: number = CURSOR_SIZE,
-  threshold: number = WHITE_THRESHOLD
-): Promise<string | null> {
-  if (typeof document === 'undefined' || typeof Image === 'undefined') {
-    return null;
-  }
-
-  try {
-    const img = await loadImage(src);
-    const naturalW = img.naturalWidth || img.width;
-    const naturalH = img.naturalHeight || img.height;
-    if (naturalW <= 0 || naturalH <= 0) {
-      return null;
-    }
-
-    // 1) 원본 해상도 캔버스에서 흰색 배경 투명화
-    const sourceCanvas = document.createElement('canvas');
-    sourceCanvas.width = naturalW;
-    sourceCanvas.height = naturalH;
-    const sourceCtx = sourceCanvas.getContext('2d', {
-      willReadFrequently: true,
-    });
-    if (!sourceCtx) {
-      return null;
-    }
-
-    sourceCtx.drawImage(img, 0, 0, naturalW, naturalH);
-    const imageData = sourceCtx.getImageData(0, 0, naturalW, naturalH);
-    removeWhiteBackground(imageData.data, threshold);
-    sourceCtx.putImageData(imageData, 0, 0);
-
-    // 2) 36x36px 크기로 고품질 리사이즈 후 PNG Data URL 생성
-    const targetCanvas = document.createElement('canvas');
-    targetCanvas.width = size;
-    targetCanvas.height = size;
-    const targetCtx = targetCanvas.getContext('2d');
-    if (!targetCtx) {
-      return null;
-    }
-
-    targetCtx.clearRect(0, 0, size, size);
-    targetCtx.imageSmoothingEnabled = true;
-    targetCtx.imageSmoothingQuality = 'high';
-    targetCtx.drawImage(sourceCanvas, 0, 0, size, size);
-
-    return targetCanvas.toDataURL('image/png');
-  } catch {
-    return null;
-  }
-}
-
-/**
- * PC 환경(pointer: fine)에서만 두 커서 이미지를 가공해 CSS 변수(--cursor-basic, --cursor-event)에 적용합니다.
+ * PC 환경(pointer: fine)에서만 84x84 SVG 커서를 CSS 변수(--cursor-basic, --cursor-event)에 적용합니다.
  */
 export function applyCustomPotatoCursors(): () => void {
   if (typeof window === 'undefined' || typeof document === 'undefined') {
@@ -116,27 +44,18 @@ export function applyCustomPotatoCursors(): () => void {
     return () => {};
   }
 
-  let cancelled = false;
   const rootStyle = document.documentElement.style;
-  rootStyle.setProperty('--cursor-basic', 'auto');
-  rootStyle.setProperty('--cursor-event', 'pointer');
-
-  Promise.all([
-    createProcessedCursorDataUrl(BASIC_CURSOR_PATH),
-    createProcessedCursorDataUrl(EVENT_CURSOR_PATH),
-  ]).then(([basicDataUrl, eventDataUrl]) => {
-    if (cancelled) return;
-    rootStyle.setProperty(
-      '--cursor-basic',
-      buildCursorCssValue(basicDataUrl, 'auto')
-    );
-    rootStyle.setProperty(
-      '--cursor-event',
-      buildCursorCssValue(eventDataUrl, 'pointer')
-    );
-  });
+  rootStyle.setProperty(
+    '--cursor-basic',
+    buildCursorCssValue(BASIC_CURSOR_SVG, 'auto')
+  );
+  rootStyle.setProperty(
+    '--cursor-event',
+    buildCursorCssValue(EVENT_CURSOR_SVG, 'pointer')
+  );
 
   return () => {
-    cancelled = true;
+    rootStyle.removeProperty('--cursor-basic');
+    rootStyle.removeProperty('--cursor-event');
   };
 }
