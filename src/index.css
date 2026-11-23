@@ -473,3 +473,36 @@ input[type="range"].potato-slider::-moz-range-thumb {
     animation: none !important;
   }
 }
+
+/* PC 마우스 환경 전용 감자 커서 (모바일·터치 기기 미적용) */
+@media (pointer: fine) {
+  html,
+  body {
+    cursor: var(--cursor-basic, auto);
+  }
+
+  a,
+  a *,
+  button,
+  button *,
+  [role="button"],
+  [role="button"] *,
+  [role="tab"],
+  [role="tab"] *,
+  input[type="range"],
+  label,
+  label *,
+  select,
+  .cursor-pointer,
+  .cursor-pointer * {
+    cursor: var(--cursor-event, pointer);
+  }
+
+  input[type="range"].potato-slider::-webkit-slider-thumb {
+    cursor: var(--cursor-event, pointer);
+  }
+
+  input[type="range"].potato-slider::-moz-range-thumb {
+    cursor: var(--cursor-event, pointer);
+  }
+}

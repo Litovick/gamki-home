@@ -5,6 +5,14 @@ import { Reveal } from './Reveal';
 import { APP_LIVE_URL } from '../utils/potatoLogic';
 import { getRevealDelay } from '../utils/revealLogic';
 
+const TEAM_MEMBERS = [
+  { studentId: '20222594', major: '디지털미디어콘텐츠', name: '황도영' },
+  { studentId: '20221043', major: '철학전공', name: '백승우' },
+  { studentId: '20252517', major: '디지털미디어콘텐츠', name: '김서연' },
+  { studentId: '20266638', major: '미래융합스쿨', name: '정세영' },
+  { studentId: '20269110', major: '자율전공학부', name: '김서진' },
+] as const;
+
 export function ProjectInfoSection() {
   const [copied, setCopied] = useState(false);
 
@@ -41,53 +49,53 @@ export function ProjectInfoSection() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* 카드 1: 프로젝트 개요 */}
             <Reveal delayMs={getRevealDelay(0)} className="flex">
-              <article className="w-full rounded-[24px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] flex flex-col justify-between">
-                <div>
-                  <div className="text-xs font-medium text-[#3D7D47] mb-1">
-                    01 · 개요
-                  </div>
-                  <h3 className="font-display text-2xl text-[#3A2A20] mb-4">
-                    프로젝트 개요
-                  </h3>
-                  <div className="rounded-2xl bg-[#FAF8F2] border-2 border-dashed border-[#3A2A20]/25 p-5 min-h-[168px] flex items-center justify-center text-center">
-                    <p className="text-sm text-[#5B493E] leading-relaxed">
-                      춘천 대학생은 "춘천에는 할 게 없다"며 전공 경험을 미루기
-                      쉽습니다. 감자 키우기는 춘천·온라인 기회와 학년별 할 일을
-                      보여 주고, 기회를 보고 기록하는 일을 "감자 돌보기"로 바꾼
-                      디자인씽킹 조별 과제입니다.
-                    </p>
-                  </div>
+              <article className="w-full rounded-[24px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] flex flex-col">
+                <div className="text-xs font-medium text-[#3D7D47] mb-1">
+                  01 · 개요
                 </div>
-                <p className="mt-4 text-xs text-[#6B584B]">
-                  프로젝트 발표 및 시연 안내 문구 자리
-                </p>
+                <h3 className="font-display text-2xl text-[#3A2A20] mb-4">
+                  프로젝트 개요
+                </h3>
+                <div className="flex-1 rounded-2xl bg-[#FAF8F2] border-2 border-[#3A2A20]/15 p-5 min-h-[168px] flex items-center justify-center text-center">
+                  <p className="text-sm text-[#5B493E] leading-relaxed">
+                    춘천 대학생은 "춘천에는 할 게 없다"며 전공 경험을 미루기
+                    쉽습니다. 감자 키우기는 춘천·온라인 기회와 학년별 할 일을
+                    보여 주고, 기회를 보고 기록하는 일을 "감자 돌보기"로 바꾼
+                    디자인씽킹 조별 과제입니다.
+                  </p>
+                </div>
               </article>
             </Reveal>
 
             {/* 카드 2: 팀원 소개 */}
             <Reveal delayMs={getRevealDelay(1)} className="flex">
-              <article className="w-full rounded-[24px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] flex flex-col justify-between">
-                <div>
-                  <div className="text-xs font-medium text-[#3D7D47] mb-1">
-                    02 · 만든 사람들
-                  </div>
-                  <h3 className="font-display text-2xl text-[#3A2A20] mb-4">
-                    팀원 소개
-                  </h3>
-                  <div className="space-y-2.5">
-                    {[1, 2, 3].map((idx) => (
-                      <div
-                        key={idx}
-                        className="rounded-xl bg-[#FAF8F2] border border-dashed border-[#3A2A20]/25 px-4 py-3 text-sm text-[#5B493E]"
-                      >
-                        [팀원 {idx} 이름 · 담당 역할 입력 예정]
-                      </div>
-                    ))}
-                  </div>
+              <article className="w-full rounded-[24px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] flex flex-col">
+                <div className="text-xs font-medium text-[#3D7D47] mb-1">
+                  02 · 만든 사람들
                 </div>
-                <p className="mt-4 text-xs text-[#6B584B]">
-                  기획 · 디자인 · 개발 역할 정리 자리
-                </p>
+                <h3 className="font-display text-2xl text-[#3A2A20] mb-4">
+                  팀원 소개
+                </h3>
+                <ul className="space-y-2">
+                  {TEAM_MEMBERS.map((member) => (
+                    <li
+                      key={member.studentId}
+                      className="rounded-xl bg-[#FAF8F2] border border-[#3A2A20]/15 px-3.5 py-2.5 flex items-center justify-between gap-2"
+                    >
+                      <div className="min-w-0 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                        <span className="text-xs text-[#6B584B] tabular-nums shrink-0">
+                          {member.studentId}
+                        </span>
+                        <span className="text-xs sm:text-[13px] text-[#5B493E]">
+                          {member.major}
+                        </span>
+                      </div>
+                      <span className="font-display text-[15px] text-[#3A2A20] whitespace-nowrap shrink-0">
+                        {member.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </article>
             </Reveal>
 
@@ -172,7 +180,10 @@ export function ProjectInfoSection() {
           <div className="font-display text-lg text-[#3A2A20]">
             감자 키우기 · 프로젝트 홈페이지
           </div>
-          <p className="text-sm text-[#6B584B]">[추가 정보 입력 예정]</p>
+          <div className="text-sm text-[#6B584B] leading-relaxed text-center sm:text-right">
+            <p>개발 : Claude Code, GitHub, Vercel, Xcode, Google AI Studio</p>
+            <p>기획 : Figma</p>
+          </div>
         </div>
       </footer>
     </>
