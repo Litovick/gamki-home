@@ -120,10 +120,10 @@ export function HeroSection() {
                 감자 키우기
               </h1>
               <p
-                className={`max-w-lg text-lg sm:text-xl leading-relaxed rounded-2xl px-4 py-3 border transition-colors duration-300 ${
+                className={`max-w-xl text-lg sm:text-xl leading-relaxed rounded-2xl px-4 py-3 border transition-colors duration-300 ${
                   palette.isDarkSky
                     ? 'text-[#FFFDF7] bg-[#1E2A4A]/75 border-[#FFFDF7]/25 backdrop-blur-xs'
-                    : 'text-[#4D3B30] bg-[#FFFDF7]/85 border-[#3A2A20]/12 backdrop-blur-[2px]'
+                    : 'text-[#1F1712] bg-[#FFFDF7]/92 border-[#3A2A20]/15 backdrop-blur-[2px]'
                 }`}
               >
                 감자를 키우다 보면 졸업할 때 이력서가 채워져 있는 앱
@@ -161,7 +161,7 @@ export function HeroSection() {
                 <h2 className="font-display text-xl sm:text-2xl text-[#3A2A20]">
                   미접속 일수별 감자 변화 체험
                 </h2>
-                <span className="text-sm text-[#5B493E] whitespace-nowrap shrink-0 tabular-nums">
+                <span className="text-sm text-[#1F1712] whitespace-nowrap shrink-0 tabular-nums">
                   {absentDays}일 · {currentMood.label}
                 </span>
               </div>
@@ -175,7 +175,7 @@ export function HeroSection() {
                 <div
                   role="status"
                   aria-live="polite"
-                  className="relative mb-3 max-w-sm w-full text-center bg-[#FFFDF7] border-2 border-[#3A2A20] rounded-2xl px-4 py-2.5 text-[15px] text-[#3A2A20]"
+                  className="relative mb-3 max-w-sm w-full text-center bg-[#FFFDF7] border-2 border-[#3A2A20] rounded-2xl px-4 py-2.5 text-[16.5px] text-[#3A2A20]"
                 >
                   <span>{pokeMessage || currentMood.speechPlaceholder}</span>
                   <span
@@ -197,7 +197,7 @@ export function HeroSection() {
                   />
                 </div>
 
-                <p className="mt-1 text-xs text-[#6B584B]">
+                <p className="mt-1 text-xs text-[#332720]">
                   감자를 직접 눌러보면 톡톡 반응해요
                   {pokeCount > 0 ? ` · 쓰다듬은 횟수 ${pokeCount}번` : ''}
                 </p>
@@ -205,7 +205,7 @@ export function HeroSection() {
 
               {/* 0일~10일 슬라이더 */}
               <div className="mt-5 space-y-2.5">
-                <div className="flex items-center justify-between text-sm text-[#4D3B30]">
+                <div className="flex items-center justify-between text-sm text-[#1F1712]">
                   <label htmlFor="absent-days-slider" className="font-medium">
                     미접속 일수 조절
                   </label>
@@ -223,7 +223,7 @@ export function HeroSection() {
                   onChange={(e) => handleDaysChange(Number(e.target.value))}
                   className="w-full potato-slider"
                 />
-                <div className="flex justify-between text-xs text-[#6B584B] tabular-nums px-0.5">
+                <div className="flex justify-between text-xs text-[#332720] tabular-nums px-0.5">
                   <span>0일</span>
                   <span>2일</span>
                   <span>4일</span>

@@ -13,6 +13,28 @@
   --color-bud: #c9b6f2;
   --color-petal: #f1ebff;
   --color-stamen: #ffd23f;
+
+  /* 발표 가독성용 소폭 상향된 타이포그래피 스케일 */
+  --text-xs: 0.84375rem;
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.96875rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.375rem;
+  --text-xl--line-height: 1.4;
+  --text-2xl: 1.625rem;
+  --text-2xl--line-height: 1.35;
+  --text-3xl: 2rem;
+  --text-3xl--line-height: 1.25;
+  --text-4xl: 2.5rem;
+  --text-4xl--line-height: 1.2;
+  --text-5xl: 3.25rem;
+  --text-5xl--line-height: 1.15;
+  --text-6xl: 4rem;
+  --text-6xl--line-height: 1.1;
 }
 
 @layer base {

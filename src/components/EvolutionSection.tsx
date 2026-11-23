@@ -15,7 +15,7 @@ export function EvolutionSection() {
           <h2 className="font-display text-3xl sm:text-4xl text-[#3A2A20]">
             접속하지 않으면 감자가 변해요
           </h2>
-          <p className="text-base text-[#5B493E] leading-relaxed">
+          <p className="text-base text-[#1F1712] leading-relaxed">
             매일 들러주면 환하게 웃고, 오래 비워두면 서운해하는 감자의 4단계
             표정 변화를 살펴보세요.
           </p>
@@ -33,7 +33,7 @@ export function EvolutionSection() {
                   className="w-full flex flex-col items-center text-center rounded-[24px] border-2 border-[#3A2A20] p-6 shadow-[0_5px_0_#3A2A20] transition-transform hover:-translate-y-1"
                   style={{ backgroundColor: stage.accentBg }}
                 >
-                  <div className="text-sm text-[#5B493E] mb-1">
+                  <div className="text-sm text-[#1F1712] mb-1">
                     {index + 1}단계 · {stage.label}
                   </div>
                   <h3 className="font-display text-xl text-[#3A2A20] mb-4 whitespace-nowrap">
@@ -50,7 +50,7 @@ export function EvolutionSection() {
                     />
                   </div>
 
-                  <p className="mt-4 w-full rounded-xl bg-[#FFFDF7]/90 border border-[#3A2A20]/15 px-3.5 py-3 text-sm text-[#5B493E] leading-relaxed">
+                  <p className="mt-4 w-full rounded-xl bg-[#FFFDF7]/90 border border-[#3A2A20]/15 px-3.5 py-3 text-sm text-[#1F1712] leading-relaxed">
                     {stage.descriptionPlaceholder}
                   </p>
                 </article>

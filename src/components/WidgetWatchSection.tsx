@@ -32,7 +32,7 @@ export function WidgetWatchSection() {
           <h2 className="font-display text-3xl sm:text-4xl text-[#3A2A20]">
             앱을 안 열어도, 감자는 보고 있어요.
           </h2>
-          <p className="text-base text-[#5B493E] leading-relaxed">
+          <p className="text-base text-[#1F1712] leading-relaxed">
             iPhone 홈 화면 위젯과 Apple Watch에서도 감자 표정이 마지막 접속일에
             따라 바뀝니다. 발표 시연에서는 슬라이더를 움직이면 워치 표정도 바로
             바뀌어요.
@@ -52,7 +52,7 @@ export function WidgetWatchSection() {
                       {item.title}
                     </h3>
                   </div>
-                  <p className="text-xs text-[#6B584B]">{item.alt}</p>
+                  <p className="text-xs text-[#332720]">{item.alt}</p>
                 </div>
 
                 <div className="w-full overflow-x-auto rounded-2xl bg-[#FAF8F2] border border-[#3A2A20]/12 p-3 sm:p-5">

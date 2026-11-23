@@ -159,7 +159,7 @@ export function CoreFeaturesSection() {
           <h2 className="font-display text-3xl sm:text-4xl text-[#3A2A20]">
             감자 키우기의 핵심 커리어 기능 3가지
           </h2>
-          <p className="text-base text-[#5B493E] leading-relaxed">
+          <p className="text-base text-[#1F1712] leading-relaxed">
             막막한 진로 준비를 춘천 지역 기회 탐색, 4개 학년 맞춤 로드맵, 그리고
             익명 대학생 커뮤니티로 부담 없이 시작해 보세요.
           </p>
@@ -224,7 +224,7 @@ export function CoreFeaturesSection() {
                   <h3 className="font-display text-2xl sm:text-3xl text-[#3A2A20] leading-snug">
                     {activeFeature.headline}
                   </h3>
-                  <p className="text-base text-[#4D3B30] leading-relaxed">
+                  <p className="text-base text-[#1F1712] leading-relaxed">
                     {activeFeature.description}
                   </p>
                 </div>
@@ -233,7 +233,7 @@ export function CoreFeaturesSection() {
                   {activeFeature.points.map((point, idx) => (
                     <li
                       key={idx}
-                      className="flex items-start gap-3 rounded-2xl bg-[#FFFDF7] border border-[#3A2A20]/15 px-4 py-3.5 text-sm sm:text-[15px] text-[#3A2A20] leading-relaxed"
+                      className="flex items-start gap-3 rounded-2xl bg-[#FFFDF7] border border-[#3A2A20]/15 px-4 py-3.5 text-sm sm:text-[16.5px] text-[#1F1712] leading-relaxed"
                     >
                       <span
                         aria-hidden="true"
@@ -260,7 +260,7 @@ export function CoreFeaturesSection() {
                           춘천 · 온라인 맞춤 기회
                         </h4>
                       </div>
-                      <span className="text-xs text-[#6B584B]">
+                      <span className="text-xs text-[#332720]">
                         마감 지난 공고 자동 숨김
                       </span>
                     </div>
@@ -309,14 +309,14 @@ export function CoreFeaturesSection() {
                                 >
                                   {item.status}
                                 </span>
-                                <span className="text-[#6B584B]">
+                                <span className="text-[#332720]">
                                   {item.organization}
                                 </span>
                               </div>
                               <div className="font-display text-base sm:text-lg text-[#3A2A20] leading-snug">
                                 {item.title}
                               </div>
-                              <div className="text-xs text-[#6B584B]">
+                              <div className="text-xs text-[#332720]">
                                 {item.deadlineLabel}
                               </div>
                             </div>
@@ -329,7 +329,7 @@ export function CoreFeaturesSection() {
                               className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border-2 text-xs font-display whitespace-nowrap shrink-0 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3D7D47] ${
                                 isScrapped
                                   ? 'bg-[#FFE7A3] text-[#3A2A20] border-[#3A2A20]'
-                                  : 'bg-[#FFFDF7] text-[#5B493E] border-[#3A2A20]/25 hover:border-[#3A2A20]'
+                                  : 'bg-[#FFFDF7] text-[#1F1712] border-[#3A2A20]/25 hover:border-[#3A2A20]'
                               }`}
                             >
                               <Bookmark
@@ -345,7 +345,7 @@ export function CoreFeaturesSection() {
                       })}
                     </div>
 
-                    <p className="mt-4 text-xs text-[#5B493E] bg-[#F3F8EB] rounded-xl px-3.5 py-2.5 border border-[#3D7D47]/20">
+                    <p className="mt-4 text-xs text-[#1F1712] bg-[#F3F8EB] rounded-xl px-3.5 py-2.5 border border-[#3D7D47]/20">
                       스크랩한 기회는 마감 3일 전·하루 전, 정기 모집 시작 달 1일에
                       알림을 보내드려요. (현재 {scrappedIds.length}개 스크랩됨)
                     </p>
@@ -373,7 +373,7 @@ export function CoreFeaturesSection() {
                           <h4 className="font-display text-xl sm:text-2xl text-[#3A2A20]">
                             {currentGrowthInfo.name}
                           </h4>
-                          <p className="text-xs text-[#6B584B] mt-0.5">
+                          <p className="text-xs text-[#332720] mt-0.5">
                             새싹 → 잎 → 꽃봉오리 → 꽃 단계로 이어져요
                           </p>
                         </div>
@@ -440,14 +440,14 @@ export function CoreFeaturesSection() {
                             <span className="font-display text-[#3D7D47]">
                               {ROADMAP_SLOT_LABELS[idx].tag}
                             </span>
-                            <span className="text-[#6B584B]">
+                            <span className="text-[#332720]">
                               {currentRoadmap.label} 목표 {idx + 1}
                             </span>
                           </div>
-                          <p className="text-sm sm:text-[15px] text-[#3A2A20] font-medium">
+                          <p className="text-sm sm:text-[16.5px] text-[#3A2A20] font-medium">
                             {slotText}
                           </p>
-                          <div className="text-xs text-[#6B584B] pt-1 border-t border-dashed border-[#3A2A20]/15">
+                          <div className="text-xs text-[#332720] pt-1 border-t border-dashed border-[#3A2A20]/15">
                             {ROADMAP_SLOT_LABELS[idx].linkedNotice}
                           </div>
                         </div>
@@ -467,7 +467,7 @@ export function CoreFeaturesSection() {
                           춘천 대학생 익명 게시판
                         </h4>
                       </div>
-                      <span className="text-xs text-[#6B584B]">
+                      <span className="text-xs text-[#332720]">
                         이름 없이 안전하게 질문해요
                       </span>
                     </div>
@@ -515,7 +515,7 @@ export function CoreFeaturesSection() {
                               className={`px-2.5 py-1 rounded-lg border transition-colors whitespace-nowrap cursor-pointer ${
                                 active
                                   ? 'bg-[#3A2A20] text-[#FFFDF7] border-[#3A2A20]'
-                                  : 'bg-[#FFFDF7] text-[#5B493E] border-[#3A2A20]/20 hover:border-[#3A2A20]'
+                                  : 'bg-[#FFFDF7] text-[#1F1712] border-[#3A2A20]/20 hover:border-[#3A2A20]'
                               }`}
                             >
                               {sort}
@@ -536,7 +536,7 @@ export function CoreFeaturesSection() {
                               : 'bg-[#FAF8F2] border-[#3A2A20]/15'
                           }`}
                         >
-                          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[#5B493E] mb-1.5">
+                          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[#1F1712] mb-1.5">
                             <span className="font-medium text-[#3A2A20]">
                               {post.authorMeta}
                             </span>
@@ -547,10 +547,10 @@ export function CoreFeaturesSection() {
                           <h5 className="font-display text-base sm:text-lg text-[#3A2A20] mb-1">
                             {post.title}
                           </h5>
-                          <p className="text-sm text-[#5B493E] leading-relaxed">
+                          <p className="text-sm text-[#1F1712] leading-relaxed">
                             {post.excerpt}
                           </p>
-                          <div className="mt-3 flex items-center gap-4 text-xs text-[#6B584B] tabular-nums">
+                          <div className="mt-3 flex items-center gap-4 text-xs text-[#332720] tabular-nums">
                             <span className="inline-flex items-center gap-1">
                               <Heart className="w-3.5 h-3.5" aria-hidden="true" />
                               공감 {post.likes}

@@ -40,7 +40,7 @@ export function Navbar() {
         {/* 우측 데스크톱 메뉴 */}
         <nav
           aria-label="주요 메뉴"
-          className="hidden md:flex items-center gap-7 text-[15px] text-[#5B493E]"
+          className="hidden md:flex items-center gap-7 text-[16.5px] text-[#1F1712]"
         >
           {NAV_ITEMS.map((item) => (
             <a

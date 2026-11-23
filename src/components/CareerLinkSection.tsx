@@ -218,7 +218,7 @@ export function CareerLinkSection() {
           <h2 className="font-display text-3xl sm:text-4xl text-[#3A2A20]">
             진로 활동이 곧 감자 돌보기예요
           </h2>
-          <p className="text-base text-[#5B493E] leading-relaxed">
+          <p className="text-base text-[#1F1712] leading-relaxed">
             따로 게임 숙제를 하지 않아도 괜찮아요. 내 진로를 확인하고, 기회를
             찾고, 한 줄 기록을 남기는 순간 감자도 자연스럽게 함께 자라나요.
           </p>
@@ -240,7 +240,7 @@ export function CareerLinkSection() {
                     </div>
 
                     <div className="flex-1 rounded-2xl bg-[#F4F9EC] border border-[#3A2A20]/15 px-3.5 py-2.5 text-center">
-                      <div className="text-xs text-[#5B493E] font-medium">
+                      <div className="text-xs text-[#1F1712] font-medium">
                         {flow.activityTitle}
                       </div>
                       <div
@@ -258,7 +258,7 @@ export function CareerLinkSection() {
                   <h3 className="font-display text-xl text-[#3A2A20] mb-2">
                     {flow.activityTitle} → {flow.careTitle}
                   </h3>
-                  <p className="text-sm sm:text-[15px] text-[#5B493E] leading-relaxed mb-5">
+                  <p className="text-sm sm:text-[16.5px] text-[#1F1712] leading-relaxed mb-5">
                     {flow.description}
                   </p>
                 </div>
@@ -316,7 +316,7 @@ export function CareerLinkSection() {
                   <p className="text-sm font-medium text-[#3D7D47]">
                     경쟁 없는 나만의 성장 리듬
                   </p>
-                  <h3 className="font-display text-2xl sm:text-[26px] text-[#3A2A20] leading-snug">
+                  <h3 className="font-display text-2xl sm:text-[28px] text-[#3A2A20] leading-snug">
                     레벨이나 점수 경쟁은 없어요. 기록이 3개 쌓일 때마다 감자
                     머리 위 싹이 한 단계씩 자라요.
                   </h3>
@@ -331,7 +331,7 @@ export function CareerLinkSection() {
                     <p
                       role="status"
                       aria-live="polite"
-                      className="text-sm sm:text-base text-[#5B493E]"
+                      className="text-sm sm:text-base text-[#1F1712]"
                     >
                       {feedback}
                     </p>
@@ -381,8 +381,8 @@ export function CareerLinkSection() {
                           }`}
                         >
                           <div
-                            className={`text-[11px] tabular-nums transition-colors duration-200 ${
-                              isSelected ? 'text-[#E7F6DC]' : 'text-[#6B584B]'
+                            className={`text-[12.5px] tabular-nums transition-colors duration-200 ${
+                              isSelected ? 'text-[#E7F6DC]' : 'text-[#332720]'
                             }`}
                           >
                             기록 {step.recordsRequired}개
@@ -398,7 +398,7 @@ export function CareerLinkSection() {
                             className={`hidden lg:inline-block text-sm shrink-0 transition-opacity duration-300 ${
                               isAdjacentArrowActive
                                 ? 'text-[#3D7D47] opacity-90'
-                                : 'text-[#6B584B] opacity-35'
+                                : 'text-[#332720] opacity-35'
                             }`}
                           >
                             →
@@ -413,7 +413,7 @@ export function CareerLinkSection() {
 
             {/* 미접속 연결 요약 한 줄 */}
             <div className="mt-6 pt-5 border-t border-[#3A2A20]/12 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <p className="text-sm sm:text-[15px] text-[#4D3B30] leading-relaxed">
+              <p className="text-sm sm:text-[16.5px] text-[#1F1712] leading-relaxed">
                 반대로 며칠 동안 진로를 미루고 앱을 안 열면, 감자 표정이{' '}
                 <strong className="font-display font-normal text-[#3A2A20]">
                   웃음 → 무표정 → 짜증 → 분노
