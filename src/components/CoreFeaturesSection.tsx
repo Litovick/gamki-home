@@ -33,7 +33,7 @@ const FEATURE_TABS: readonly {
     title: '기회 찾기',
     headline: '“할 게 없다며? 여기 있는데.”',
     description:
-      '춘천 지역과 온라인에서 참여할 수 있는 서포터즈·공모전·프로젝트·인턴·현장실습·취업 기회를 내 로드맵에 맞춰 모아 보여줘요.',
+      '춘천 지역과 온라인에서 참여할 수 있는 서포터즈·공모전·프로젝트·인턴·현장실습·취업 기회를 내 로드맵에 맞춰 모아 보여줘요. 춘천·온라인 기회 51개, 24개 직무별 맞춤 추천 (2026.11.23 조사)',
     points: [
       '마감 지난 공고는 자동 숨김, 마감 임박 → 모집 중 → 곧 열려요 → 수시·정기 순으로 자동 정리',
       '유형별 필터, 키워드 검색, 온라인·우리 학교 전용 기회 구분',
@@ -48,9 +48,9 @@ const FEATURE_TABS: readonly {
     description:
       '12개 계열·24개 직무 중 내가 고른 관심 직무에 맞춰 1학년부터 4학년까지 채워야 할 전공 경험을 단계별로 안내해요.',
     points: [
-      '학년마다 3개씩(내 직무 맞춤 1개 + 공통 2개), 총 12단계로 부담 없이 구성',
-      '각 할 일 아래에 바로 지원할 수 있는 실제 춘천·청년 일경험 공고 연결',
-      '마친 일에 한 줄 기록을 남기면 쌓여서 이력서 초안으로 한 번에 복사 가능',
+      '감자 밭 사이 흙길에 1~4학년 정류장, 끝은 "지원서 쓰기" 깃발. 지금 학년 정류장에 감자가 서 있어요',
+      '학년마다 할 일 3개(내 직무 1 + 공통 2). 할 일을 한 만큼 길이 초록으로 칠해져요',
+      '끝낸 일에 한 줄씩 남기면 이력서 초안으로 바로 복사. 12개를 다 해도 "취업 성공"이 아니라 "이 기록으로 지원서 써 보자"',
     ],
   },
   {
@@ -61,9 +61,9 @@ const FEATURE_TABS: readonly {
     description:
       '같은 지역 대학생끼리 진로 고민, 활동 후기, 선배 조언을 부담 없이 묻고 답하는 익명 공간이에요.',
     points: [
-      '이름 대신 익명 감자 · 학교 · 계열 · 학년만 표시되는 안전한 익명 소통',
-      '선배 조언 · 질문 · 후기 · 자유 게시판과 최신순 · 공감순 · 우리 계열만 필터 제공',
-      '선배 조언 탭 상단에서 먼저 경험한 선배 이야기를 바로 확인',
+      '게시판 4개: 선배 조언 · 질문 · 후기 · 자유. 최신순·공감순, 우리 계열만 보기',
+      '이름 대신 "익명 감자 · 한림대 · 미디어 · 2학년"처럼 학교·계열·학년만 보여요',
+      '신고가 3번 쌓이면 글이 자동으로 숨겨져요. 읽기는 누구나, 쓰기는 로그인한 사람만',
     ],
   },
 ] as const;
@@ -107,7 +107,9 @@ export function CoreFeaturesSection() {
 
   // ① 기회 찾기 미리보기 상태
   const [oppCategory, setOppCategory] = useState<OpportunityCategory>('전체');
-  const [scrappedIds, setScrappedIds] = useState<string[]>(['mime-festival']);
+  const [scrappedIds, setScrappedIds] = useState<string[]>([
+    'policy-idea-contest',
+  ]);
 
   // ② 학년별 로드맵 미리보기 상태
   const [selectedGrade, setSelectedGrade] = useState<GradeNumber>(1);
@@ -296,7 +298,7 @@ export function CoreFeaturesSection() {
                         return (
                           <div
                             key={item.id}
-                            className="rounded-2xl bg-[#FAF8F2] border border-[#3A2A20]/18 p-4 flex items-center justify-between gap-3"
+                            className="rounded-2xl bg-[#FAF8F2] border border-[#3A2A20]/18 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                           >
                             <div className="min-w-0 space-y-1">
                               <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -308,10 +310,10 @@ export function CoreFeaturesSection() {
                                   {item.status}
                                 </span>
                                 <span className="text-[#6B584B]">
-                                  {item.category} · {item.regionTag}
+                                  {item.organization}
                                 </span>
                               </div>
-                              <div className="font-display text-base sm:text-lg text-[#3A2A20] truncate">
+                              <div className="font-display text-base sm:text-lg text-[#3A2A20] leading-snug">
                                 {item.title}
                               </div>
                               <div className="text-xs text-[#6B584B]">

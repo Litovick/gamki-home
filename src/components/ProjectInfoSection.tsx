@@ -51,7 +51,10 @@ export function ProjectInfoSection() {
                   </h3>
                   <div className="rounded-2xl bg-[#FAF8F2] border-2 border-dashed border-[#3A2A20]/25 p-5 min-h-[168px] flex items-center justify-center text-center">
                     <p className="text-sm text-[#5B493E] leading-relaxed">
-                      [진행 기간, 앱 기획 의도 등 프로젝트 개요 입력 예정]
+                      춘천 대학생은 "춘천에는 할 게 없다"며 전공 경험을 미루기
+                      쉽습니다. 감자 키우기는 춘천·온라인 기회와 학년별 할 일을
+                      보여 주고, 기회를 보고 기록하는 일을 "감자 돌보기"로 바꾼
+                      디자인씽킹 조별 과제입니다.
                     </p>
                   </div>
                 </div>

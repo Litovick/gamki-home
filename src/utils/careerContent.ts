@@ -11,7 +11,7 @@ export interface OpportunityPreviewItem {
   category: Exclude<OpportunityCategory, '전체'>;
   status: OpportunityStatus;
   title: string;
-  regionTag: string;
+  organization: string;
   deadlineLabel: string;
 }
 
@@ -58,36 +58,36 @@ export const OPPORTUNITY_STATUS_ORDER: readonly OpportunityStatus[] = [
 
 export const OPPORTUNITY_SAMPLES: readonly OpportunityPreviewItem[] = [
   {
-    id: 'mime-festival',
+    id: 'policy-idea-contest',
     category: '공모전',
     status: '마감 임박',
+    title: '대학생 정책 아이디어 공모전',
+    organization: '한국정책분석평가학회',
+    deadlineLabel: '11.26 마감',
+  },
+  {
+    id: 'mime-festival',
+    category: '공모전',
+    status: '곧 열려요',
     title: '춘천마임축제 국내참가작 공모',
-    regionTag: '춘천 지역',
-    deadlineLabel: '마감 3일 전',
+    organization: '춘천마임축제',
+    deadlineLabel: '매년 11월~1월 접수',
+  },
+  {
+    id: 'kto-youth-intern',
+    category: '인턴·실습',
+    status: '곧 열려요',
+    title: '한국관광공사 체험형 청년인턴',
+    organization: '한국관광공사(본사 원주)',
+    deadlineLabel: '해마다 여러 차례',
   },
   {
     id: 'chuncheon-scholarship',
     category: '서포터즈',
-    status: '모집 중',
-    title: '춘천인재육성장학재단 서포터즈',
-    regionTag: '우리 학교·춘천',
-    deadlineLabel: '상시 확인 가능',
-  },
-  {
-    id: 'gangwon-intern',
-    category: '인턴·실습',
-    status: '곧 열려요',
-    title: '강원 청년 일경험 현장실습 프로그램',
-    regionTag: '온라인·춘천',
-    deadlineLabel: '다음 달 1일 모집 시작',
-  },
-  {
-    id: 'local-project',
-    category: '서포터즈',
     status: '수시·정기',
-    title: '춘천 문화도시 청년 프로젝트 참여단',
-    regionTag: '춘천 지역',
-    deadlineLabel: '정기 모집',
+    title: '춘천인재육성장학재단 서포터즈',
+    organization: '(재)춘천인재육성장학재단',
+    deadlineLabel: '매년 6월 모집',
   },
 ] as const;
 

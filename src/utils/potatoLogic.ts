@@ -54,8 +54,9 @@ export const MOOD_STAGES: readonly MoodInfo[] = [
     shortButtonLabel: '오늘',
     quickDayValue: 0,
     imageSrc: '/mascot/happy.webp',
-    speechPlaceholder: '[상태별 대사 입력 예정 · 웃음]',
-    descriptionPlaceholder: '[설명 입력 예정]',
+    speechPlaceholder: '감자가 오늘도 성장 중!',
+    descriptionPlaceholder:
+      '매일 들르면 감자가 환하게 웃어요. 하루 한 번 앱을 열면 물도 한 개 생겨요.',
     accentBg: '#F4F9EC',
   },
   {
@@ -65,8 +66,8 @@ export const MOOD_STAGES: readonly MoodInfo[] = [
     shortButtonLabel: '2일',
     quickDayValue: 2,
     imageSrc: '/mascot/neutral.webp',
-    speechPlaceholder: '[상태별 대사 입력 예정 · 무표정]',
-    descriptionPlaceholder: '[설명 입력 예정]',
+    speechPlaceholder: '감자가 멈춰 있어요.',
+    descriptionPlaceholder: '이틀만 안 와도 표정이 굳어요. 이날 첫 알림이 가요.',
     accentBg: '#FBF7EA',
   },
   {
@@ -76,8 +77,9 @@ export const MOOD_STAGES: readonly MoodInfo[] = [
     shortButtonLabel: '4일',
     quickDayValue: 4,
     imageSrc: '/mascot/annoyed.webp',
-    speechPlaceholder: '[상태별 대사 입력 예정 · 짜증]',
-    descriptionPlaceholder: '[설명 입력 예정]',
+    speechPlaceholder: '2학년 할 일 아직이야? 이대로 졸업할 거야?',
+    descriptionPlaceholder:
+      '지금 학년에 남은 할 일을 콕 집어 재촉해요. 맑은 낮이면 하늘이 누렇게 변해요.',
     accentBg: '#FDF1E6',
   },
   {
@@ -87,8 +89,9 @@ export const MOOD_STAGES: readonly MoodInfo[] = [
     shortButtonLabel: '7일',
     quickDayValue: 7,
     imageSrc: '/mascot/angry.webp',
-    speechPlaceholder: '[상태별 대사 입력 예정 · 분노]',
-    descriptionPlaceholder: '[설명 입력 예정]',
+    speechPlaceholder: '감자가 화났다. 새 기회 확인하러 와.',
+    descriptionPlaceholder:
+      '일주일 넘게 안 오면 감자가 화내고 하늘도 붉어져요. 이후엔 주 1회만 알림을 보내요.',
     accentBg: '#FCECEB',
   },
 ] as const;

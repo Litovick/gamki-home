@@ -126,7 +126,7 @@ export function HeroSection() {
                     : 'text-[#4D3B30] bg-[#FFFDF7]/85 border-[#3A2A20]/12 backdrop-blur-[2px]'
                 }`}
               >
-                [앱 한 줄 소개 문구를 입력하세요]
+                감자를 키우다 보면 졸업할 때 이력서가 채워져 있는 앱
               </p>
             </div>
 
