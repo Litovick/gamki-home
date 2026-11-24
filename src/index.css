@@ -457,6 +457,67 @@ input[type="range"].potato-slider::-moz-range-thumb {
   animation: tab-panel-fade 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* 감자 유형 테스트 전용 CSS 애니메이션 (오디오 없음) */
+@keyframes quiz-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes quiz-dig-wobble {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  20% {
+    transform: translateY(-8px) rotate(-6deg) scale(1.04, 0.96);
+  }
+  45% {
+    transform: translateY(2px) rotate(5deg) scale(0.97, 1.04);
+  }
+  70% {
+    transform: translateY(-6px) rotate(-4deg) scale(1.03, 0.98);
+  }
+}
+
+@keyframes quiz-result-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(16px);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.08) translateY(-6px);
+  }
+  78% {
+    transform: scale(0.96) translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0px);
+  }
+}
+
+.quiz-float {
+  animation: quiz-float 2.8s ease-in-out infinite;
+}
+
+.quiz-dig-wobble {
+  animation: quiz-dig-wobble 0.65s ease-in-out infinite;
+}
+
+.quiz-result-pop {
+  animation: quiz-result-pop 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.quiz-step-in {
+  animation: tab-panel-fade 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -491,7 +552,11 @@ input[type="range"].potato-slider::-moz-range-thumb {
   .care-burst-anim,
   .sprout-group,
   .cloud-slow,
-  .cloud-reverse {
+  .cloud-reverse,
+  .quiz-float,
+  .quiz-dig-wobble,
+  .quiz-result-pop,
+  .quiz-step-in {
     animation: none !important;
   }
 }
