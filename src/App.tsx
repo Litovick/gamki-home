@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
+import { IntroVideoSection } from './components/IntroVideoSection';
 import { CoreFeaturesSection } from './components/CoreFeaturesSection';
 import { CareerLinkSection } from './components/CareerLinkSection';
 import { EvolutionSection } from './components/EvolutionSection';
@@ -105,6 +106,7 @@ export default function App() {
           savedPotatoType={savedPotatoType}
           onResetPotatoType={handleResetPotatoType}
         />
+        <IntroVideoSection />
         <CoreFeaturesSection />
         <CareerLinkSection />
         <EvolutionSection />
