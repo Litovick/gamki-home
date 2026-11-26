@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChuncheonBackdrop } from './ChuncheonBackdrop';
 import { Mascot } from './Mascot';
 import { Reveal } from './Reveal';
@@ -6,6 +6,7 @@ import {
   APP_LIVE_URL,
   MOOD_STAGES,
   clampAbsentDays,
+  getMascotHeight,
   getMoodByAbsentDays,
 } from '../utils/potatoLogic';
 import {
@@ -15,6 +16,16 @@ import {
   getTimePhaseFromHour,
   mapWmoWeatherCode,
 } from '../utils/environmentLogic';
+import { PotatoTypeId } from '../utils/potatoQuizLogic';
+import {
+  POTATO_PROP_META,
+  loadCroppedPropPotatoDataUrl,
+} from '../utils/potatoPropsSprite';
+
+interface HeroSectionProps {
+  savedPotatoType?: PotatoTypeId | null;
+  onResetPotatoType?: () => void;
+}
 
 const POKE_REACTIONS: Record<string, string> = {
   happy: '말랑말랑! 감자가 기분 좋게 방긋 웃어요.',
@@ -23,15 +34,48 @@ const POKE_REACTIONS: Record<string, string> = {
   angry: '톡톡! 얼른 놀아달라고 발을 동동 굴러요!',
 };
 
-export function HeroSection() {
+export function HeroSection({
+  savedPotatoType = null,
+  onResetPotatoType,
+}: HeroSectionProps) {
   const [absentDays, setAbsentDays] = useState<number>(0);
   const [pokeMessage, setPokeMessage] = useState<string>('');
   const [pokeCount, setPokeCount] = useState<number>(0);
+  const [propImageUrl, setPropImageUrl] = useState<string | null>(null);
+  const [isPropHopping, setIsPropHopping] = useState<boolean>(false);
+  const propHopTimerRef = useRef<number | null>(null);
   const [chuncheonWeather, setChuncheonWeather] =
     useState<WeatherType>('clear');
   const [currentHour, setCurrentHour] = useState<number>(() =>
     new Date().getHours()
   );
+
+  // 저장된 감자 유형이 있으면 /potato-props.jpg에서 해당 유형(상단 70%)을 크롭 + 흰 배경 투명화
+  useEffect(() => {
+    if (!savedPotatoType) {
+      setPropImageUrl(null);
+      return;
+    }
+
+    let cancelled = false;
+    loadCroppedPropPotatoDataUrl(savedPotatoType).then((dataUrl) => {
+      if (!cancelled) {
+        setPropImageUrl(dataUrl);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [savedPotatoType]);
+
+  useEffect(() => {
+    return () => {
+      if (propHopTimerRef.current !== null) {
+        window.clearTimeout(propHopTimerRef.current);
+      }
+    };
+  }, []);
 
   // 브라우저 현재 시각 자동 갱신
   useEffect(() => {
@@ -87,6 +131,27 @@ export function HeroSection() {
     setPokeCount((c) => c + 1);
     setPokeMessage(POKE_REACTIONS[currentMood.mood]);
   };
+
+  const handlePropMascotPoke = () => {
+    setIsPropHopping(false);
+    window.requestAnimationFrame(() => {
+      setIsPropHopping(true);
+    });
+    if (propHopTimerRef.current !== null) {
+      window.clearTimeout(propHopTimerRef.current);
+    }
+    propHopTimerRef.current = window.setTimeout(() => {
+      setIsPropHopping(false);
+    }, 560);
+    handleMascotPoke();
+  };
+
+  const savedPotatoMeta = savedPotatoType
+    ? POTATO_PROP_META[savedPotatoType]
+    : null;
+  const isPropMascotActive = Boolean(
+    savedPotatoType && savedPotatoMeta && propImageUrl
+  );
 
   return (
     <section
@@ -186,16 +251,63 @@ export function HeroSection() {
 
                 {/* 살아 있는 감자 (숨쉬기 · 눈 깜빡임 · 클릭 젤리 반응) */}
                 <div className="my-1">
-                  <Mascot
-                    mood={currentMood.mood}
-                    grow={0}
-                    size={164}
-                    animate
-                    blink
-                    interactive
-                    onPoke={handleMascotPoke}
-                  />
+                  {isPropMascotActive && propImageUrl && savedPotatoMeta ? (
+                    <button
+                      type="button"
+                      onClick={handlePropMascotPoke}
+                      aria-label={`${savedPotatoMeta.name} (${savedPotatoMeta.propName}) 쓰다듬기`}
+                      className="inline-flex items-center justify-center rounded-3xl p-1 cursor-pointer transition-transform focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#3d7d47] focus-visible:ring-offset-2"
+                    >
+                      <span
+                        data-testid="hero-prop-mascot"
+                        data-potato-type={savedPotatoMeta.id}
+                        className={`mascot-wrap ${
+                          isPropHopping
+                            ? 'mascot-anim-hop'
+                            : `mascot-anim-${currentMood.mood}`
+                        } flex items-center justify-center`}
+                        style={{
+                          width: '164px',
+                          height: `${getMascotHeight(164)}px`,
+                        }}
+                      >
+                        <img
+                          src={propImageUrl}
+                          alt={`${savedPotatoMeta.name} (${savedPotatoMeta.propName})`}
+                          draggable={false}
+                          className="w-full h-full object-contain select-none"
+                        />
+                      </span>
+                    </button>
+                  ) : (
+                    <Mascot
+                      mood={currentMood.mood}
+                      grow={0}
+                      size={164}
+                      animate
+                      blink
+                      interactive
+                      onPoke={handleMascotPoke}
+                    />
+                  )}
                 </div>
+
+                {isPropMascotActive && savedPotatoMeta && onResetPotatoType && (
+                  <button
+                    type="button"
+                    data-testid="reset-default-potato-btn"
+                    onClick={onResetPotatoType}
+                    className="mt-1 mb-1 max-w-full inline-flex items-center justify-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#FFFDF7] hover:bg-[#F5EFE2] active:translate-y-0.5 border-2 border-[#3A2A20]/35 hover:border-[#3A2A20] text-[11px] sm:text-xs font-display text-[#3A2A20] shadow-[0_2px_0_rgba(58,42,32,0.18)] transition-all whitespace-nowrap cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3D7D47]"
+                  >
+                    <span className="text-[#3D7D47]">
+                      내 감자: {savedPotatoMeta.name}
+                    </span>
+                    <span aria-hidden="true" className="text-[#3A2A20]/40">
+                      ·
+                    </span>
+                    <span>기본 감자로 보기</span>
+                  </button>
+                )}
 
                 <p className="mt-1 text-xs text-[#332720]">
                   감자를 직접 눌러보면 톡톡 반응해요

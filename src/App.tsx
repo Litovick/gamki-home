@@ -15,6 +15,11 @@ import {
   buildQuizHash,
   parseQuizRoute,
 } from './utils/potatoQuizLogic';
+import {
+  clearSavedPotatoType,
+  readSavedPotatoType,
+  savePotatoType,
+} from './utils/potatoPropsSprite';
 
 function readCurrentRoute(): QuizRouteState {
   if (typeof window === 'undefined') {
@@ -25,6 +30,9 @@ function readCurrentRoute(): QuizRouteState {
 
 export default function App() {
   const [route, setRoute] = useState<QuizRouteState>(readCurrentRoute);
+  const [savedPotatoType, setSavedPotatoType] = useState<PotatoTypeId | null>(
+    () => readSavedPotatoType()
+  );
 
   useEffect(() => applyCustomPotatoCursors(), []);
 
@@ -60,9 +68,20 @@ export default function App() {
     setRoute({ view: 'quiz', resultType });
   }, []);
 
+  const handleSavePotatoType = useCallback((resultType: PotatoTypeId) => {
+    savePotatoType(resultType);
+    setSavedPotatoType(resultType);
+  }, []);
+
+  const handleResetPotatoType = useCallback(() => {
+    clearSavedPotatoType();
+    setSavedPotatoType(null);
+  }, []);
+
   const handleGoHome = useCallback(() => {
     window.history.pushState(null, '', window.location.pathname);
     setRoute({ view: 'home' });
+    setSavedPotatoType(readSavedPotatoType());
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
@@ -71,6 +90,7 @@ export default function App() {
       <PotatoQuizView
         initialResultType={route.resultType}
         onSyncResultRoute={handleSyncResultRoute}
+        onResultSaved={handleSavePotatoType}
         onGoHome={handleGoHome}
       />
     );
@@ -81,7 +101,10 @@ export default function App() {
       <Navbar onOpenQuiz={handleOpenQuiz} />
 
       <main>
-        <HeroSection />
+        <HeroSection
+          savedPotatoType={savedPotatoType}
+          onResetPotatoType={handleResetPotatoType}
+        />
         <CoreFeaturesSection />
         <CareerLinkSection />
         <EvolutionSection />

@@ -164,12 +164,13 @@ export const CAREER_CARE_FLOWS: readonly CareerCareFlowItem[] = [
   },
   {
     id: 'fertilizer',
-    activityTitle: '로드맵 한 줄 기록',
+    activityTitle: '로드맵 한 줄 기록 · 기회 지원',
     careTitle: '거름 주기',
     description:
-      "학년별 할 일을 마치고 기록을 남기면 감자에게 '거름'을 줘요.",
+      "학년별 할 일을 마치고 한 줄 기록을 남기거나 관심 기회에 지원하면 감자에게 '거름'을 줘요.",
     buttonLabel: '거름 주기 체험',
-    feedbackText: '한 줄 기록이 쌓여 감자 머리 위 싹이 쑥 자라났어요!',
+    feedbackText:
+      '한 줄 기록과 기회 지원이 쌓여 감자 머리 위 싹이 쑥 자라났어요!',
     addsRecordStep: true,
   },
 ] as const;

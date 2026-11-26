@@ -19,6 +19,7 @@ import {
   getQuizProgressPercent,
 } from '../utils/potatoQuizLogic';
 import { PotatoEncyclopediaModal } from './PotatoEncyclopediaModal';
+import { savePotatoType } from '../utils/potatoPropsSprite';
 
 type QuizStage = 'intro' | 'play' | 'loading' | 'result';
 
@@ -27,6 +28,7 @@ const CIRCLED_NUMBERS = ['①', '②', '③'] as const;
 interface PotatoQuizViewProps {
   initialResultType: PotatoTypeId | null;
   onSyncResultRoute: (resultType: PotatoTypeId | null) => void;
+  onResultSaved?: (resultType: PotatoTypeId) => void;
   onGoHome: () => void;
 }
 
@@ -91,6 +93,7 @@ function MiniTrackPotatoIcon() {
 export function PotatoQuizView({
   initialResultType,
   onSyncResultRoute,
+  onResultSaved,
   onGoHome,
 }: PotatoQuizViewProps) {
   const [stage, setStage] = useState<QuizStage>(
@@ -197,6 +200,8 @@ export function PotatoQuizView({
       window.scrollTo({ top: 0, behavior: 'auto' });
 
       loadingTimerRef.current = window.setTimeout(() => {
+        savePotatoType(winner);
+        onResultSaved?.(winner);
         setResultType(winner);
         setStage('result');
         prevInitialResultRef.current = winner;
@@ -620,6 +625,11 @@ export function PotatoQuizView({
 
               {/* 하단 액션 버튼 영역 */}
               <div className="pt-2 space-y-3">
+                <p className="text-center text-xs sm:text-sm text-[#332720] leading-relaxed">
+                  앱에서 테스트하면 내 감자가 유형 소품을 쓰고, 유형에 맞는 춘천
+                  기회를 바로 추천해 줘요.
+                </p>
+
                 {/* 1. 감자 키우기 앱 바로가기 */}
                 <a
                   href={APP_LIVE_URL}
