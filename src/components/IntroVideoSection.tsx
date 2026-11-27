@@ -46,9 +46,12 @@ export function IntroVideoSection() {
     <section
       id="intro-video"
       aria-label="감자 키우기 40초 소개 영상"
-      className="py-14 sm:py-20 bg-[#FAF8F2] border-t-2 border-[#3A2A20]/10"
+      className="scroll-mt-20 py-14 sm:py-20 bg-[#FAF8F2] border-t-2 border-[#3A2A20]/10"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div
+        data-testid="intro-video-content"
+        className="max-w-6xl mx-auto px-4 sm:px-6"
+      >
         <Reveal className="max-w-2xl space-y-2.5 mb-7 sm:mb-9">
           <p className="text-sm font-medium text-[#3D7D47]">
             00 · 40초 미리보기
@@ -59,7 +62,10 @@ export function IntroVideoSection() {
         </Reveal>
 
         <Reveal delayMs={80}>
-          <div className="rounded-[28px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-3 sm:p-5 shadow-[0_6px_0_#3A2A20]">
+          <div
+            data-testid="intro-video-card"
+            className="rounded-[28px] bg-[#FFFDF7] border-2 border-[#3A2A20] p-3 sm:p-5 shadow-[0_6px_0_#3A2A20]"
+          >
             <div
               data-testid="intro-video-player-frame"
               className="relative aspect-video w-full overflow-hidden rounded-2xl border-2 border-[#3A2A20]/20 bg-[#F7F1E3]"

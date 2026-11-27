@@ -206,7 +206,50 @@ export function HeroSection({
               </a>
 
               <a
-                href="#core-features"
+                href="#intro-video"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const section = document.getElementById('intro-video');
+                  const contentEl = section?.querySelector<HTMLElement>(
+                    '[data-testid="intro-video-content"]'
+                  );
+                  const cardEl = section?.querySelector<HTMLElement>(
+                    '[data-testid="intro-video-card"]'
+                  );
+                  if (!section || !contentEl || !cardEl) {
+                    section?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'center',
+                    });
+                    return;
+                  }
+
+                  const headerHeight =
+                    document
+                      .querySelector('header')
+                      ?.getBoundingClientRect().height ?? 64;
+                  const availableHeight = window.innerHeight - headerHeight;
+                  const contentTop =
+                    window.scrollY + contentEl.getBoundingClientRect().top;
+                  const cardRect = cardEl.getBoundingClientRect();
+                  const cardTop = window.scrollY + cardRect.top;
+                  const cardBottom = window.scrollY + cardRect.bottom;
+                  const totalBlockHeight = cardBottom - contentTop;
+
+                  const targetTop =
+                    totalBlockHeight + 24 <= availableHeight
+                      ? contentTop -
+                        headerHeight -
+                        Math.max(16, (availableHeight - totalBlockHeight) / 2)
+                      : cardTop -
+                        headerHeight -
+                        Math.max(12, (availableHeight - cardRect.height) / 2);
+
+                  window.scrollTo({
+                    top: Math.max(0, Math.round(targetTop)),
+                    behavior: 'smooth',
+                  });
+                }}
                 className="px-6 py-3.5 rounded-2xl bg-[#FFFDF7] hover:bg-[#F5EFE2] active:translate-y-0.5 text-[#3A2A20] font-display text-lg tracking-wide border-2 border-[#3A2A20] shadow-[0_4px_0_#3A2A20] transition-all whitespace-nowrap shrink-0 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#3D7D47] focus-visible:ring-offset-2"
               >
                 소개 자세히 보기
