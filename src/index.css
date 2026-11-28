@@ -561,6 +561,160 @@ input[type="range"].potato-slider::-moz-range-thumb {
   }
 }
 
+/* 말랑 감자 이스터에그 서브 페이지 (.gsq) */
+.gsq {
+  --gsq-ink: #2e1d14;
+  --gsq-ink-2: #7a6553;
+  --gsq-paper: #f6eedd;
+  --gsq-cut: #fffdf7;
+  --gsq-blush: 0;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 28px 16px 22px;
+  border-radius: 28px;
+  background: radial-gradient(120% 90% at 50% 0%, #fbf6ea 0%, var(--gsq-paper) 70%);
+  color: var(--gsq-ink);
+  font-family: 'Jua', 'Pretendard Variable', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.gsq-title {
+  margin: 0;
+  font-size: clamp(22px, 5vw, 32px);
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.gsq-lead {
+  margin: 0;
+  font-size: clamp(14px, 3.8vw, 16px);
+  color: var(--gsq-ink-2);
+  text-align: center;
+}
+
+.gsq-stage {
+  position: relative;
+  width: min(320px, 78vw);
+  aspect-ratio: 300 / 360;
+  margin-top: 4px;
+}
+
+.gsq-say {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 2;
+  translate: -50% 0;
+  max-width: calc(100vw - 56px);
+  padding: 9px 16px 10px;
+  border: 3px solid var(--gsq-ink);
+  border-radius: 18px;
+  background: var(--gsq-cut);
+  font-size: clamp(15px, 4.3vw, 19px);
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  scale: 0.6;
+  transition: opacity 0.18s, scale 0.32s cubic-bezier(0.3, 1.6, 0.5, 1);
+  pointer-events: none;
+}
+
+.gsq-say::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 14px;
+  height: 14px;
+  translate: -50% 0;
+  rotate: 45deg;
+  background: var(--gsq-cut);
+  border-right: 3px solid var(--gsq-ink);
+  border-bottom: 3px solid var(--gsq-ink);
+}
+
+.gsq-say.on {
+  opacity: 1;
+  scale: 1;
+}
+
+.gsq-btn {
+  position: absolute;
+  inset: 14% 0 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: grab;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gsq-btn:active {
+  cursor: grabbing;
+}
+
+.gsq-btn:focus-visible {
+  outline: 3px dashed var(--gsq-ink-2);
+  outline-offset: 6px;
+  border-radius: 40%;
+}
+
+.gsq-btn svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.gsq-shadow {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.gsq-pop {
+  position: absolute;
+  z-index: 3;
+  font-size: 22px;
+  color: var(--gsq-ink);
+  pointer-events: none;
+  opacity: 0;
+  translate: -50% -50%;
+  animation: gsq-pop 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  text-shadow: 0 2px 0 var(--gsq-cut);
+}
+
+@keyframes gsq-pop {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+  }
+  20% {
+    opacity: 1;
+    scale: 1.1;
+  }
+  100% {
+    opacity: 0;
+    scale: 1;
+    translate: -50% -170%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gsq-pop {
+    animation-duration: 0.01s;
+  }
+  .gsq-say {
+    transition: none;
+  }
+}
+
 /* PC 마우스 환경 전용 감자 커서 (모바일·터치 기기 미적용) */
 @media (pointer: fine) {
   html,

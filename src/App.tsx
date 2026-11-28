@@ -9,28 +9,29 @@ import { WidgetWatchSection } from './components/WidgetWatchSection';
 import { QuizPromoBanner } from './components/QuizPromoBanner';
 import { ProjectInfoSection } from './components/ProjectInfoSection';
 import { PotatoQuizView } from './components/PotatoQuizView';
+import { MalangPotatoView } from './components/MalangPotatoView';
 import { applyCustomPotatoCursors } from './utils/customCursor';
+import { PotatoTypeId, buildQuizHash } from './utils/potatoQuizLogic';
 import {
-  PotatoTypeId,
-  QuizRouteState,
-  buildQuizHash,
-  parseQuizRoute,
-} from './utils/potatoQuizLogic';
+  AppRouteState,
+  MALANG_HASH,
+  parseAppRoute,
+} from './utils/malangLogic';
 import {
   clearSavedPotatoType,
   readSavedPotatoType,
   savePotatoType,
 } from './utils/potatoPropsSprite';
 
-function readCurrentRoute(): QuizRouteState {
+function readCurrentRoute(): AppRouteState {
   if (typeof window === 'undefined') {
     return { view: 'home' };
   }
-  return parseQuizRoute(window.location.hash, window.location.search);
+  return parseAppRoute(window.location.hash, window.location.search);
 }
 
 export default function App() {
-  const [route, setRoute] = useState<QuizRouteState>(readCurrentRoute);
+  const [route, setRoute] = useState<AppRouteState>(readCurrentRoute);
   const [savedPotatoType, setSavedPotatoType] = useState<PotatoTypeId | null>(
     () => readSavedPotatoType()
   );
@@ -41,7 +42,7 @@ export default function App() {
     const syncFromUrl = () => {
       const next = readCurrentRoute();
       setRoute(next);
-      if (next.view === 'quiz') {
+      if (next.view === 'quiz' || next.view === 'malang') {
         window.scrollTo({ top: 0, behavior: 'auto' });
       }
     };
@@ -59,6 +60,13 @@ export default function App() {
     const cleanUrl = `${window.location.pathname}${nextHash}`;
     window.history.pushState(null, '', cleanUrl);
     setRoute({ view: 'quiz', resultType: null });
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, []);
+
+  const handleOpenMalang = useCallback(() => {
+    const cleanUrl = `${window.location.pathname}${MALANG_HASH}`;
+    window.history.pushState(null, '', cleanUrl);
+    setRoute({ view: 'malang' });
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
@@ -97,6 +105,10 @@ export default function App() {
     );
   }
 
+  if (route.view === 'malang') {
+    return <MalangPotatoView onGoHome={handleGoHome} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#FFFDF7] text-[#3A2A20]">
       <Navbar onOpenQuiz={handleOpenQuiz} />
@@ -105,6 +117,7 @@ export default function App() {
         <HeroSection
           savedPotatoType={savedPotatoType}
           onResetPotatoType={handleResetPotatoType}
+          onOpenMalang={handleOpenMalang}
         />
         <IntroVideoSection />
         <CoreFeaturesSection />

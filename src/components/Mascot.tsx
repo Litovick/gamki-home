@@ -466,7 +466,7 @@ export function Mascot({
         type="button"
         onClick={handleClick}
         aria-label={`${MOOD_KO_LABEL[mood]} 쓰다듬기`}
-        className="inline-flex items-center justify-center rounded-3xl p-1 cursor-pointer transition-transform focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#3d7d47] focus-visible:ring-offset-2"
+        className="inline-flex items-center justify-center rounded-3xl p-1 cursor-pointer transition-transform active:scale-x-105 active:scale-y-90 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#3d7d47] focus-visible:ring-offset-2"
       >
         {visualContent}
       </button>

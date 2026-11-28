@@ -21,10 +21,16 @@ import {
   POTATO_PROP_META,
   loadCroppedPropPotatoDataUrl,
 } from '../utils/potatoPropsSprite';
+import {
+  EASTER_EGG_TAP_WINDOW_MS,
+  TapStreakState,
+  advanceEasterEggTapCount,
+} from '../utils/malangLogic';
 
 interface HeroSectionProps {
   savedPotatoType?: PotatoTypeId | null;
   onResetPotatoType?: () => void;
+  onOpenMalang?: () => void;
 }
 
 const POKE_REACTIONS: Record<string, string> = {
@@ -37,6 +43,7 @@ const POKE_REACTIONS: Record<string, string> = {
 export function HeroSection({
   savedPotatoType = null,
   onResetPotatoType,
+  onOpenMalang,
 }: HeroSectionProps) {
   const [absentDays, setAbsentDays] = useState<number>(0);
   const [pokeMessage, setPokeMessage] = useState<string>('');
@@ -44,6 +51,8 @@ export function HeroSection({
   const [propImageUrl, setPropImageUrl] = useState<string | null>(null);
   const [isPropHopping, setIsPropHopping] = useState<boolean>(false);
   const propHopTimerRef = useRef<number | null>(null);
+  const tapStreakRef = useRef<TapStreakState>({ count: 0, lastTapAt: null });
+  const tapResetTimerRef = useRef<number | null>(null);
   const [chuncheonWeather, setChuncheonWeather] =
     useState<WeatherType>('clear');
   const [currentHour, setCurrentHour] = useState<number>(() =>
@@ -73,6 +82,9 @@ export function HeroSection({
     return () => {
       if (propHopTimerRef.current !== null) {
         window.clearTimeout(propHopTimerRef.current);
+      }
+      if (tapResetTimerRef.current !== null) {
+        window.clearTimeout(tapResetTimerRef.current);
       }
     };
   }, []);
@@ -130,6 +142,27 @@ export function HeroSection({
   const handleMascotPoke = () => {
     setPokeCount((c) => c + 1);
     setPokeMessage(POKE_REACTIONS[currentMood.mood]);
+
+    if (tapResetTimerRef.current !== null) {
+      window.clearTimeout(tapResetTimerRef.current);
+      tapResetTimerRef.current = null;
+    }
+
+    const { state, triggered } = advanceEasterEggTapCount(
+      tapStreakRef.current,
+      Date.now()
+    );
+    tapStreakRef.current = state;
+
+    if (triggered) {
+      onOpenMalang?.();
+      return;
+    }
+
+    tapResetTimerRef.current = window.setTimeout(() => {
+      tapStreakRef.current = { count: 0, lastTapAt: null };
+      tapResetTimerRef.current = null;
+    }, EASTER_EGG_TAP_WINDOW_MS);
   };
 
   const handlePropMascotPoke = () => {
@@ -299,7 +332,7 @@ export function HeroSection({
                       type="button"
                       onClick={handlePropMascotPoke}
                       aria-label={`${savedPotatoMeta.name} (${savedPotatoMeta.propName}) 쓰다듬기`}
-                      className="inline-flex items-center justify-center rounded-3xl p-1 cursor-pointer transition-transform focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#3d7d47] focus-visible:ring-offset-2"
+                      className="inline-flex items-center justify-center rounded-3xl p-1 cursor-pointer transition-transform active:scale-x-105 active:scale-y-90 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#3d7d47] focus-visible:ring-offset-2"
                     >
                       <span
                         data-testid="hero-prop-mascot"
@@ -334,6 +367,13 @@ export function HeroSection({
                     />
                   )}
                 </div>
+
+                <p
+                  data-testid="hero-malang-hint"
+                  className="mt-1 text-xs font-display text-[#3D7D47]"
+                >
+                  감자를 연속으로 눌러보세요!
+                </p>
 
                 {isPropMascotActive && savedPotatoMeta && onResetPotatoType && (
                   <button
